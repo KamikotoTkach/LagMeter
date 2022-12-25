@@ -1,0 +1,8 @@
+name: LagMeter
+version: '${project.version}'
+main: tkachgeek.lagmeter.LagMeter
+api-version: 1.19
+authors: [ TkachGeek ]
+website: vk.com/cwcode
+commands:
+  lag:
