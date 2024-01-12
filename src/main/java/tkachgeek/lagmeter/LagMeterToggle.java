@@ -1,6 +1,6 @@
 package tkachgeek.lagmeter;
 
-import tkachgeek.commands.command.arguments.executor.LocalToggleExecutor;
+import ru.cwcode.commands.paperplatform.executor.LocalToggleExecutor;
 
 public class LagMeterToggle extends LocalToggleExecutor {
   
@@ -18,5 +18,10 @@ public class LagMeterToggle extends LocalToggleExecutor {
   public void onDisable() {
     LagMeter.bar.removePlayer(player());
     LagMeter.barMs.removePlayer(player());
+  }
+  
+  @Override
+  public void executeForPlayer()  {
+  
   }
 }

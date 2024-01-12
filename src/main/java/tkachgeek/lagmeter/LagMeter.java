@@ -5,7 +5,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.plugin.java.JavaPlugin;
-import tkachgeek.commands.command.Command;
+import ru.cwcode.commands.Command;
 import tkachgeek.tkachutils.numbers.NumbersUtils;
 import tkachgeek.tkachutils.scheduler.Scheduler;
 
@@ -15,8 +15,13 @@ public final class LagMeter extends JavaPlugin {
   
   @Override
   public void onEnable() {
-    new Command("lag", new LagMeterToggle(true)).register(this);
-    Scheduler.create(null).perform((x) -> tick()).infinite().register(this, 5);
+    new Command("lag", new LagMeterToggle(true)).register();
+    
+    Scheduler.create(this)
+             .async()
+             .perform(LagMeter::tick)
+             .infinite()
+             .register(this, 1);
   }
   
   @Override
@@ -25,7 +30,7 @@ public final class LagMeter extends JavaPlugin {
   }
   
   public void tick() {
-    if (bar.getPlayers().size() == 0) return;
+    if (bar.getPlayers().isEmpty()) return;
     
     var tickTime = Bukkit.getAverageTickTime();
     var tps = 1000 / tickTime;
@@ -33,10 +38,11 @@ public final class LagMeter extends JavaPlugin {
     
     if (tps > 20) tps = 20;
     else if (tps < 0) tps = 0;
+    
     if (tickTimeToBar < 0) tickTimeToBar = 0;
     
-    bar.setProgress(tps / 20);
     bar.setTitle("TPS: " + NumbersUtils.round(tps, 1));
+    bar.setProgress(tps / 20);
     
     barMs.setTitle("Avg " + NumbersUtils.round(tickTime, 1) + " ms/tick");
     barMs.setProgress(1 - tickTimeToBar / 50);
