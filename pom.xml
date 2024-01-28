@@ -65,7 +65,7 @@
                                     <type>${project.packaging}</type>
                                 </artifactItem>
                             </artifactItems>
-                            <outputDirectory>C:/Server/plugins</outputDirectory>
+                            <outputDirectory>${lib.dir}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

@@ -12,12 +12,14 @@ public class LagMeterToggle extends LocalToggleExecutor {
   public void onEnable() {
     LagMeter.bar.addPlayer(player());
     LagMeter.barMs.addPlayer(player());
+    LagMeter.barCurrent.addPlayer(player());
   }
   
   @Override
   public void onDisable() {
     LagMeter.bar.removePlayer(player());
     LagMeter.barMs.removePlayer(player());
+    LagMeter.barCurrent.removePlayer(player());
   }
   
   @Override
